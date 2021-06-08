@@ -531,7 +531,6 @@ class _signupState extends State<signup> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => Login()));
-                                
                               }
                             },
                       child: Text(
@@ -547,12 +546,9 @@ class _signupState extends State<signup> {
                   ),
                 ),
                 FlatButton(
-                    onPressed: () async{
-                      DocumentSnapshot res=await FirebaseFirestore.instance.collection('users').doc('uBTCja0SZn19fZFsiDvt').get();
-                      if(res!=null)
-                      {
-                        print(res['name']);
-                      }
+                    onPressed: () async {
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) => Login()));
                     },
                     child: Text(
                       " Login",

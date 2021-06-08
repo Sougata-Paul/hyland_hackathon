@@ -36,6 +36,7 @@ dependencies:
   intl:
   flutter_easyloading:
   ntp:
+  searchable_dropdown:
 
 
 dev_dependencies:

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hyland_hackathon/authentication/authentication_service.dart';
+import 'package:hyland_hackathon/menu.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -10,7 +10,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  String email,password;
+  String email, password;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +27,7 @@ class _LoginState extends State<Login> {
                 TextStyle(color: Colors.black, fontFamily: 'Andika New Basic'),
             onChanged: (value) {
               setState(() {
-                email=value;
+                email = value;
               });
             },
             decoration: InputDecoration(
@@ -58,7 +58,7 @@ class _LoginState extends State<Login> {
                 TextStyle(color: Colors.black, fontFamily: 'Andika New Basic'),
             onChanged: (value) {
               setState(() {
-                password=value;
+                password = value;
               });
             },
             decoration: InputDecoration(
@@ -80,41 +80,44 @@ class _LoginState extends State<Login> {
                 )),
           ),
         ),
-         Container(
-                  height: MediaQuery.of(context).size.height/15,
-              width: MediaQuery.of(context).size.width / 2,
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(Colors.blue.shade900),
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(MediaQuery.of(context).size.width*0.08),
-                                side: BorderSide(color: Colors.white)))),
-                      onPressed: () async {
-                        EasyLoading.show(status: 'Authenticating...');
-                        try {
-                          print(email);
-                          print(password);
-                          await login(email,password);
-                          // if (user != null) {
-                          //   Navigator.pop(context);
-                          //   Navigator.pushReplacement(context,
-                          //       MaterialPageRoute(builder: (context) => Menu()));
-                          //   EasyLoading.showSuccess('Logged in successfully');
-                          // }
-                          EasyLoading.dismiss();
-                        } catch (e) {
-                          EasyLoading.showError(
-                            e.message,
-                          );
-                        }
-                      },
-                      child: Text(
-                        'Login',
-                        style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.05,letterSpacing: MediaQuery.of(context).size.width*0.002),
-                      )),
-                ),
+        Container(
+          height: MediaQuery.of(context).size.height / 15,
+          width: MediaQuery.of(context).size.width / 2,
+          child: ElevatedButton(
+              style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all(Colors.blue.shade900),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                              MediaQuery.of(context).size.width * 0.08),
+                          side: BorderSide(color: Colors.white)))),
+              onPressed: () async {
+                EasyLoading.show(status: 'Authenticating...');
+                try {
+                  print(email);
+                  print(password);
+                  await login(email, password);
+                  if (user != null) {
+                    Navigator.pop(context);
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => Menu()));
+                    EasyLoading.showSuccess('Logged in successfully');
+                  }
+                  EasyLoading.dismiss();
+                } catch (e) {
+                  EasyLoading.showError(
+                    e.message,
+                  );
+                }
+              },
+              child: Text(
+                'Login',
+                style: TextStyle(
+                    fontSize: MediaQuery.of(context).size.width * 0.05,
+                    letterSpacing: MediaQuery.of(context).size.width * 0.002),
+              )),
+        ),
       ]),
     );
   }
