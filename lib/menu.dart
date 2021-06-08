@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hyland_hackathon/disease_checker.dart';
+import 'package:hyland_hackathon/feed.dart';
 
 class Menu extends StatefulWidget {
   @override
@@ -34,6 +35,27 @@ class _MenuState extends State<Menu> {
                 },
                 child: Text(
                   'Disease Checker',
+                  style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.width * 0.05,
+                      letterSpacing: MediaQuery.of(context).size.width * 0.002),
+                )),
+                ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all(Colors.blue.shade900),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                                MediaQuery.of(context).size.width * 0.08),
+                            side: BorderSide(color: Colors.white)))),
+                onPressed: () async {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => feed()));
+                },
+                child: Text(
+                  'feed',
                   style: TextStyle(
                       fontSize: MediaQuery.of(context).size.width * 0.05,
                       letterSpacing: MediaQuery.of(context).size.width * 0.002),

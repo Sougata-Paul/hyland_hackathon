@@ -549,6 +549,14 @@ class _signupState extends State<signup> {
                     onPressed: () async {
                       Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: (context) => Login()));
+                      // FirebaseFirestore.instance
+                      //     .collectionGroup('posts').where('topic',isEqualTo:'covid').orderBy('postTime',descending: true)
+                      //     .get()
+                      //     .then((QuerySnapshot querySnapshot) => {
+                      //           querySnapshot.docs.forEach((doc) {
+                      //             print(doc.data().toString());
+                      //           }),
+                      //         });
                     },
                     child: Text(
                       " Login",
