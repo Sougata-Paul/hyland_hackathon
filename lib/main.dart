@@ -7,6 +7,7 @@ import 'package:hyland_hackathon/authentication/authentication_service.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await loaduserdata();
   runApp(MyApp());
 }
 

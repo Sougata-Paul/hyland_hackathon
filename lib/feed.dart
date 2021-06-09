@@ -34,6 +34,36 @@ class _feedState extends State<feed> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: TextFormField(
+                    cursorColor: Colors.white,
+                    // style: GoogleFonts.notoSans(
+                    //     fontSize: MediaQuery.of(context).size.height / 45,
+                    //     color: Colors.white),
+                    decoration: InputDecoration(
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white)),
+                        suffixIcon: IconButton(
+                          onPressed: () {},
+                          icon: Icon(Icons.search, size: 30),
+                          color: Colors.white,
+                        ),
+                        // prefixIcon: IconButton(
+                        //   onPressed: () {
+                        //     // Navigator.pushReplacement(
+                        //     //   context,
+                        //     //   MaterialPageRoute(builder: (context) => MyApp()),
+                        //     // );
+                        //   },
+                        //   icon: Icon(Icons.arrow_back_ios, size: 30),
+                        //   color: Colors.white,
+                        // ),
+                        hintText: 'Search here...',
+                        // hintStyle: GoogleFonts.notoSans(
+                        //     fontSize: MediaQuery.of(context).size.height / 45,
+                        //     color: Colors.white),
+                        errorStyle: TextStyle(color: Colors.white)),
+                    //onChanged: onItemChanged,
+                  ),),
         body: SingleChildScrollView(
       child: SafeArea(
         child: Column(children: [

@@ -522,6 +522,7 @@ class _signupState extends State<signup> {
                                   'first_name': firstname.trim().toLowerCase(),
                                   'last_name': lastname.trim().toLowerCase(),
                                   'email': email,
+                                  'cart':[],
                                 };
                                 print(details['first_name']);
                                 print(details['last_name']);

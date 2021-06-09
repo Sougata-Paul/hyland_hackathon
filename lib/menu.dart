@@ -5,6 +5,7 @@ import 'package:hyland_hackathon/disease_checker.dart';
 import 'package:hyland_hackathon/dialogs.dart';
 import 'package:hyland_hackathon/feed.dart';
 import 'package:hyland_hackathon/firstpage.dart';
+import 'package:hyland_hackathon/orders.dart';
 
 class Menu extends StatefulWidget {
   @override
@@ -78,6 +79,26 @@ class _MenuState extends State<Menu> {
               },
               child: Text(
                 'chatrooms',
+                style: TextStyle(
+                    fontSize: MediaQuery.of(context).size.width * 0.05,
+                    letterSpacing: MediaQuery.of(context).size.width * 0.002),
+              ),
+            ),
+                        ElevatedButton(
+              style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all(Colors.blue.shade900),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                              MediaQuery.of(context).size.width * 0.08),
+                          side: BorderSide(color: Colors.white)))),
+              onPressed: () async {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => orders(),),);
+              },
+              child: Text(
+                'My orders',
                 style: TextStyle(
                     fontSize: MediaQuery.of(context).size.width * 0.05,
                     letterSpacing: MediaQuery.of(context).size.width * 0.002),

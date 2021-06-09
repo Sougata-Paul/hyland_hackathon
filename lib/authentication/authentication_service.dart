@@ -1,5 +1,3 @@
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ntp/ntp.dart';
@@ -12,9 +10,6 @@ User user;
 final firebase = FirebaseAuth.instance;
 final firestore = FirebaseFirestore.instance;
 
-
-
-
 sign_up(Map<String, dynamic> details, String email, String password) async {
   try {
     var user1 = await firebase.createUserWithEmailAndPassword(
@@ -23,27 +18,31 @@ sign_up(Map<String, dynamic> details, String email, String password) async {
     print(details['first_name']);
     await firestore.collection('users').doc(user1.user.uid).set(details);
     await firebase.signOut();
-  } catch (e) {
-    
-  }
+  } catch (e) {}
 }
 
 login(String email, String password) async {
   var user1 = await firebase.signInWithEmailAndPassword(
       email: email, password: password);
-  
-    user = user1.user;
-    DocumentSnapshot data =
-        await firestore.collection('users').doc(user.uid).get();
-    userDetails = data.data();
-     userDetails['created_on'] = userDetails['created_on'].toDate();
-    
-    
-  
+
+  user = user1.user;
+  DocumentSnapshot data =
+      await firestore.collection('users').doc(user.uid).get();
+  userDetails = data.data();
+  userDetails['created_on'] = userDetails['created_on'].toDate();
 }
 
 logout() async {
   await firebase.signOut();
   userDetails = null;
   user = null;
+}
+
+loaduserdata() async {
+  if (firebase.currentUser != null) {
+    user = firebase.currentUser;
+    DocumentSnapshot data =
+        await firestore.collection('users').doc(user.uid).get();
+    userDetails = data.data();
+  }
 }
