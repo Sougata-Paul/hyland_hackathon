@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hyland_hackathon/authentication/authentication_service.dart';
 import 'package:hyland_hackathon/menu.dart';
@@ -93,22 +92,20 @@ class _LoginState extends State<Login> {
                               MediaQuery.of(context).size.width * 0.08),
                           side: BorderSide(color: Colors.white)))),
               onPressed: () async {
-                EasyLoading.show(status: 'Authenticating...');
+               
                 try {
                   print(email);
                   print(password);
                   await login(email, password);
-                  if (user != null) {
+                  if (userDetails != null) {
                     Navigator.pop(context);
                     Navigator.pushReplacement(context,
                         MaterialPageRoute(builder: (context) => Menu()));
-                    EasyLoading.showSuccess('Logged in successfully');
+                    
                   }
-                  EasyLoading.dismiss();
+                  
                 } catch (e) {
-                  EasyLoading.showError(
-                    e.message,
-                  );
+                  
                 }
               },
               child: Text(

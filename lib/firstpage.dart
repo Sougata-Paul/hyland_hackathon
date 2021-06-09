@@ -16,7 +16,7 @@ class FirstPage extends StatelessWidget {
               height: 300,
               width: 300,
             ),
-            Text('Welcome To My Reference Application',
+            Text('Welcome To Patients Recovery Application',
                 style: TextStyle(
                     fontSize: MediaQuery.of(context).size.height / 40)),
             SizedBox(height: MediaQuery.of(context).size.height / 50),

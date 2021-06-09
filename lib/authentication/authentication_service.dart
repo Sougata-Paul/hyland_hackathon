@@ -36,15 +36,14 @@ login(String email, String password) async {
     DocumentSnapshot data =
         await firestore.collection('users').doc(user.uid).get();
     userDetails = data.data();
-    // userDetails['created_on'] = userDetails['created_on'].toDate();
+     userDetails['created_on'] = userDetails['created_on'].toDate();
     
     
   
 }
 
-// logout() async {
-//   await firebase.signOut();
-//   userDetails = null;
-//   user = null;
-  
-// }
+logout() async {
+  await firebase.signOut();
+  userDetails = null;
+  user = null;
+}
