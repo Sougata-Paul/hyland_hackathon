@@ -9,10 +9,12 @@ class feed extends StatefulWidget {
 
 class _feedState extends State<feed> {
   List<QueryDocumentSnapshot> posts = [];
-  getposts() async {
+  String str;
+  getposts(String value) async {
+    posts = [];
     FirebaseFirestore.instance
         .collectionGroup('posts')
-        .where('topic', isEqualTo: 'covid')
+        .where('topic', isEqualTo: value)
         .orderBy('postTime', descending: true)
         .get()
         .then((QuerySnapshot querySnapshot) => {
@@ -25,59 +27,66 @@ class _feedState extends State<feed> {
   }
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    getposts();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: TextFormField(
-                    cursorColor: Colors.white,
-                    // style: GoogleFonts.notoSans(
-                    //     fontSize: MediaQuery.of(context).size.height / 45,
-                    //     color: Colors.white),
-                    decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white)),
-                        suffixIcon: IconButton(
-                          onPressed: () {},
-                          icon: Icon(Icons.search, size: 30),
-                          color: Colors.white,
-                        ),
-                        // prefixIcon: IconButton(
-                        //   onPressed: () {
-                        //     // Navigator.pushReplacement(
-                        //     //   context,
-                        //     //   MaterialPageRoute(builder: (context) => MyApp()),
-                        //     // );
-                        //   },
-                        //   icon: Icon(Icons.arrow_back_ios, size: 30),
-                        //   color: Colors.white,
-                        // ),
-                        hintText: 'Search here...',
-                        // hintStyle: GoogleFonts.notoSans(
-                        //     fontSize: MediaQuery.of(context).size.height / 45,
-                        //     color: Colors.white),
-                        errorStyle: TextStyle(color: Colors.white)),
-                    //onChanged: onItemChanged,
-                  ),),
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: TextFormField(
+            cursorColor: Colors.white,
+            decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white)),
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    getposts(str);
+                  },
+                  icon: Icon(Icons.search, size: 30),
+                  color: Colors.white,
+                ),
+                prefixIcon: IconButton(
+                  onPressed: () {
+                  Navigator.pop(context);
+                  },
+                  icon: Icon(Icons.arrow_back_ios, size: 30),
+                  color: Colors.white,
+                ),
+                hintText: 'Search',
+                errorStyle: TextStyle(color: Colors.white)),
+            onChanged: (value) {
+              setState(() {
+                str = value;
+              });
+            },
+          ),
+        ),
         body: SingleChildScrollView(
-      child: SafeArea(
-        child: Column(children: [
-          posts!=null&& posts.length!=0?ListView.builder(physics: ScrollPhysics(),shrinkWrap: true,itemCount: posts.length,itemBuilder: (BuildContext context,int index){
-            return Column(children:[
-              FlatButton(onPressed:() {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>profile(id:posts[index].data()['user_id'],name:posts[index].data()['username'])));
-              },child: Text(posts[index].data()['username'])),
-              Text(posts[index].data()['name']),
-            ]);
-          },):Container(),
-
-        ]),
-      ),
-    ));
+          child: SafeArea(
+            child: Column(children: [
+              posts != null && posts.length != 0
+                  ? ListView.builder(
+                      physics: ScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: posts.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Column(children: [
+                          FlatButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => profile(
+                                            id: posts[index].data()['user_id'],
+                                            name: posts[index]
+                                                .data()['username'])));
+                              },
+                              child: Text(posts[index].data()['username'])),
+                          Text(posts[index].data()['name']),
+                        ]);
+                      },
+                    )
+                  : Container(),
+            ]),
+          ),
+        ));
   }
 }

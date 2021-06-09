@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 // import 'package:refferencechecker/authentication/login.dart';
@@ -42,24 +41,28 @@ class _signupState extends State<signup> {
             bottom: Radius.circular(20),
           ),
         ),
-        backgroundColor: Colors.blue.shade300,
-        title: Text('Sign Up'),
+        backgroundColor: Colors.lightBlue.shade300,
+        title: Text('Sign Up',
+            style: GoogleFonts.notoSans(
+                fontWeight: FontWeight.bold,
+                fontSize: MediaQuery.of(context).size.height / 35,
+                color: Colors.white)),
       ),
       body: Center(
         child: SingleChildScrollView(
           child: Container(
-            width: 300,
+            width: 400,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                SizedBox(height: 10),
                 Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
                     cursorColor: Colors.black,
-                    style: GoogleFonts.openSans(
-                      fontSize: MediaQuery.of(context).size.width / 20,
-                      color: Colors.black,
-                    ),
+                    style: GoogleFonts.notoSans(
+                        fontSize: MediaQuery.of(context).size.height / 45,
+                        color: Colors.black),
                     keyboardType: TextInputType.text,
                     //SizedBox(height: 40),
                     // TextFormField(
@@ -97,8 +100,8 @@ class _signupState extends State<signup> {
                           color: Colors.black,
                         ),
                         labelText: 'First Name',
-                        labelStyle: GoogleFonts.openSans(
-                          fontSize: MediaQuery.of(context).size.width / 20,
+                        labelStyle: GoogleFonts.notoSans(
+                          fontSize: MediaQuery.of(context).size.height / 45,
                           color: Colors.black,
                         ),
                         errorStyle: TextStyle(
@@ -110,36 +113,28 @@ class _signupState extends State<signup> {
                     padding: const EdgeInsets.symmetric(horizontal: 10.0),
                     child: Visibility(
                       visible: vis1,
-                      child: Text(
-                        'First Name field is required',
-                        style: TextStyle(
-                          color: Colors.red,
-                          fontFamily: 'Andika New Basic',
-                          fontSize: 15,
-                        ),
-                      ),
+                      child: Text('First Name field is required',
+                          style: GoogleFonts.notoSans(
+                              fontSize: MediaQuery.of(context).size.height / 48,
+                              color: Colors.red)),
                     )),
                 Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10.0),
                     child: Visibility(
                       visible: vis2,
                       child: Text(
-                        'First Name cannot be a number or a special character',
-                        style: TextStyle(
-                          color: Colors.red,
-                          fontFamily: 'Andika New Basic',
-                          fontSize: 15,
-                        ),
-                      ),
+                          'First Name cannot be a number or a special character',
+                          style: GoogleFonts.notoSans(
+                              fontSize: MediaQuery.of(context).size.height / 48,
+                              color: Colors.red)),
                     )),
                 Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
                     cursorColor: Colors.black,
-                    style: GoogleFonts.openSans(
-                      fontSize: MediaQuery.of(context).size.width / 20,
-                      color: Colors.black,
-                    ),
+                    style: GoogleFonts.notoSans(
+                        fontSize: MediaQuery.of(context).size.height / 45,
+                        color: Colors.black),
                     keyboardType: TextInputType.text,
                     // TextFormField(
                     //   decoration: InputDecoration(labelText: 'LastName'),
@@ -176,10 +171,9 @@ class _signupState extends State<signup> {
                           color: Colors.black,
                         ),
                         labelText: 'Last Name',
-                        labelStyle: GoogleFonts.openSans(
-                          fontSize: MediaQuery.of(context).size.width / 20,
-                          color: Colors.black,
-                        ),
+                        labelStyle: GoogleFonts.notoSans(
+                            fontSize: MediaQuery.of(context).size.height / 45,
+                            color: Colors.black),
                         errorStyle: TextStyle(
                           color: Colors.black,
                         )),
@@ -189,36 +183,28 @@ class _signupState extends State<signup> {
                     padding: const EdgeInsets.symmetric(horizontal: 10.0),
                     child: Visibility(
                       visible: vis3,
-                      child: Text(
-                        'Last Name field is required',
-                        style: TextStyle(
-                          color: Colors.red,
-                          fontFamily: 'Andika New Basic',
-                          fontSize: 15,
-                        ),
-                      ),
+                      child: Text('Last Name field is required',
+                          style: GoogleFonts.notoSans(
+                              fontSize: MediaQuery.of(context).size.height / 48,
+                              color: Colors.red)),
                     )),
                 Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10.0),
                     child: Visibility(
                       visible: vis4,
                       child: Text(
-                        'Last Name cannot be a number or a special character',
-                        style: TextStyle(
-                          color: Colors.red,
-                          fontFamily: 'Andika New Basic',
-                          fontSize: 15,
-                        ),
-                      ),
+                          'Last Name cannot be a number or a special character',
+                          style: GoogleFonts.notoSans(
+                              fontSize: MediaQuery.of(context).size.height / 48,
+                              color: Colors.black)),
                     )),
                 Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
                     cursorColor: Colors.black,
-                    style: GoogleFonts.openSans(
-                      fontSize: MediaQuery.of(context).size.width / 20,
-                      color: Colors.black,
-                    ),
+                    style: GoogleFonts.notoSans(
+                        fontSize: MediaQuery.of(context).size.height / 45,
+                        color: Colors.black),
                     keyboardType: TextInputType.emailAddress,
                     onChanged: (value) {
                       c++;
@@ -253,10 +239,9 @@ class _signupState extends State<signup> {
                           color: Colors.black,
                         ),
                         labelText: 'Email',
-                        labelStyle: GoogleFonts.openSans(
-                          fontSize: MediaQuery.of(context).size.width / 20,
-                          color: Colors.black,
-                        ),
+                        labelStyle: GoogleFonts.notoSans(
+                            fontSize: MediaQuery.of(context).size.height / 45,
+                            color: Colors.black),
                         errorStyle: TextStyle(
                           color: Colors.black,
                         )),
@@ -266,38 +251,29 @@ class _signupState extends State<signup> {
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: Visibility(
                     visible: vis5,
-                    child: Text(
-                      'Email field is required',
-                      style: TextStyle(
-                        color: Colors.red,
-                        fontFamily: 'Andika New Basic',
-                        fontSize: 15,
-                      ),
-                    ),
+                    child: Text('Email field is required',
+                        style: GoogleFonts.notoSans(
+                            fontSize: MediaQuery.of(context).size.height / 48,
+                            color: Colors.red)),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: Visibility(
                     visible: vis6,
-                    child: Text(
-                      'Invalid email format',
-                      style: TextStyle(
-                        color: Colors.red,
-                        fontFamily: 'Andika New Basic',
-                        fontSize: 15,
-                      ),
-                    ),
+                    child: Text('Invalid email format',
+                        style: GoogleFonts.notoSans(
+                            fontSize: MediaQuery.of(context).size.height / 48,
+                            color: Colors.black)),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
                     cursorColor: Colors.black,
-                    style: GoogleFonts.openSans(
-                      fontSize: MediaQuery.of(context).size.width / 20,
-                      color: Colors.black,
-                    ),
+                    style: GoogleFonts.notoSans(
+                        fontSize: MediaQuery.of(context).size.height / 45,
+                        color: Colors.black),
                     obscureText: _obscureText,
                     keyboardType: TextInputType.text,
                     // TextFormField(
@@ -358,10 +334,9 @@ class _signupState extends State<signup> {
                               });
                             }),
                         labelText: 'Password',
-                        labelStyle: GoogleFonts.openSans(
-                          fontSize: MediaQuery.of(context).size.width / 20,
-                          color: Colors.black,
-                        ),
+                        labelStyle: GoogleFonts.notoSans(
+                            fontSize: MediaQuery.of(context).size.height / 45,
+                            color: Colors.black),
                         errorStyle: TextStyle(
                           color: Colors.black,
                         )),
@@ -371,36 +346,28 @@ class _signupState extends State<signup> {
                     padding: const EdgeInsets.symmetric(horizontal: 10.0),
                     child: Visibility(
                       visible: vis8,
-                      child: Text(
-                        'Password field is required',
-                        style: TextStyle(
-                          color: Colors.red,
-                          fontFamily: 'Andika New Basic',
-                          fontSize: 15,
-                        ),
-                      ),
+                      child: Text('Password field is required',
+                          style: GoogleFonts.notoSans(
+                              fontSize: MediaQuery.of(context).size.height / 48,
+                              color: Colors.red)),
                     )),
                 Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10.0),
                     child: Visibility(
                       visible: vis9,
                       child: Text(
-                        'Password must contain atleast 6 characters,and consist of a letter and a number.',
-                        style: TextStyle(
-                          color: Colors.red,
-                          fontFamily: 'Andika New Basic',
-                          fontSize: 15,
-                        ),
-                      ),
+                          'Password must contain atleast 6 characters,and consist of a letter and a number.',
+                          style: GoogleFonts.notoSans(
+                              fontSize: MediaQuery.of(context).size.height / 48,
+                              color: Colors.red)),
                     )),
                 Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
                     cursorColor: Colors.black,
-                    style: GoogleFonts.openSans(
-                      fontSize: MediaQuery.of(context).size.width / 20,
-                      color: Colors.black,
-                    ),
+                    style: GoogleFonts.notoSans(
+                        fontSize: MediaQuery.of(context).size.height / 45,
+                        color: Colors.black),
                     obscureText: _obscureText1,
                     keyboardType: TextInputType.emailAddress,
 
@@ -453,10 +420,9 @@ class _signupState extends State<signup> {
                               });
                             }),
                         labelText: 'Confirm Password',
-                        labelStyle: GoogleFonts.openSans(
-                          fontSize: MediaQuery.of(context).size.width / 20,
-                          color: Colors.black,
-                        ),
+                        labelStyle: GoogleFonts.notoSans(
+                            fontSize: MediaQuery.of(context).size.height / 45,
+                            color: Colors.black),
                         errorStyle: TextStyle(
                           color: Colors.black,
                         )),
@@ -466,35 +432,29 @@ class _signupState extends State<signup> {
                     padding: const EdgeInsets.symmetric(horizontal: 10.0),
                     child: Visibility(
                       visible: vis10,
-                      child: Text(
-                        'Confirm Password field is required',
-                        style: TextStyle(
-                          color: Colors.red,
-                          fontFamily: 'Andika New Basic',
-                          fontSize: 15,
-                        ),
-                      ),
+                      child: Text('Confirm Password field is required',
+                          style: GoogleFonts.notoSans(
+                              fontSize: MediaQuery.of(context).size.height / 48,
+                              color: Colors.red)),
                     )),
                 Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10.0),
                     child: Visibility(
                       visible: vis11,
                       child: Text(
-                        'Password and confirm password should be same',
-                        style: TextStyle(
-                          color: Colors.red,
-                          fontFamily: 'Andika New Basic',
-                          fontSize: 15,
-                        ),
-                      ),
+                          'Password and confirm password should be same',
+                          style: GoogleFonts.notoSans(
+                              fontSize: MediaQuery.of(context).size.height / 48,
+                              color: Colors.red)),
                     )),
+                SizedBox(height: 30),
                 Container(
                   height: MediaQuery.of(context).size.height / 15,
                   width: MediaQuery.of(context).size.width / 2,
                   child: ElevatedButton(
                       style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.blue.shade900),
+                          backgroundColor: MaterialStateProperty.all(
+                              Colors.lightBlue.shade300),
                           shape:
                               MaterialStateProperty.all<RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
@@ -522,7 +482,6 @@ class _signupState extends State<signup> {
                                   'first_name': firstname.trim().toLowerCase(),
                                   'last_name': lastname.trim().toLowerCase(),
                                   'email': email,
-                                  'cart':[],
                                 };
                                 print(details['first_name']);
                                 print(details['last_name']);
@@ -536,14 +495,18 @@ class _signupState extends State<signup> {
                             },
                       child: Text(
                         'Sign Up',
-                        style: TextStyle(fontSize: 20, letterSpacing: 1),
+                        style: GoogleFonts.notoSans(
+                            fontSize: MediaQuery.of(context).size.height / 35,
+                            color: Colors.white),
                       )),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 20),
                   child: Text(
                     "Already have an account?",
-                    style: TextStyle(fontSize: 20),
+                    style: GoogleFonts.notoSans(
+                        fontSize: MediaQuery.of(context).size.height / 45,
+                        color: Colors.black),
                   ),
                 ),
                 FlatButton(
@@ -561,11 +524,10 @@ class _signupState extends State<signup> {
                     },
                     child: Text(
                       " Login",
-                      style: TextStyle(
+                      style: GoogleFonts.notoSans(
+                          fontSize: MediaQuery.of(context).size.height / 45,
                           color: Colors.black,
-                          fontFamily: 'Andika New Basic',
-                          decoration: TextDecoration.underline,
-                          fontSize: 20),
+                          decoration: TextDecoration.underline),
                     ))
               ],
             ),

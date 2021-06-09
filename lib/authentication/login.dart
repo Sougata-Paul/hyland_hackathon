@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hyland_hackathon/authentication/authentication_service.dart';
 import 'package:hyland_hackathon/menu.dart';
+
+import '../disease_checker.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -12,18 +15,30 @@ class _LoginState extends State<Login> {
   String email, password;
   @override
   Widget build(BuildContext context) {
+    bool _obscureText = true;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Log in"),
+        title: Text("Log in",
+            style: GoogleFonts.notoSans(
+                fontWeight: FontWeight.bold,
+                fontSize: MediaQuery.of(context).size.height / 35,
+                color: Colors.white)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(20),
+          ),
+        ),
+        backgroundColor: Colors.lightBlue.shade300,
       ),
-      body: Column(children: [
+      body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         Padding(
           padding: EdgeInsets.all(11.0),
           child: TextFormField(
             keyboardType: TextInputType.emailAddress,
             cursorColor: Colors.black,
-            style:
-                TextStyle(color: Colors.black, fontFamily: 'Andika New Basic'),
+            style: GoogleFonts.notoSans(
+                fontSize: MediaQuery.of(context).size.height / 45,
+                color: Colors.black),
             onChanged: (value) {
               setState(() {
                 email = value;
@@ -39,10 +54,9 @@ class _LoginState extends State<Login> {
                   color: Colors.black,
                 ),
                 labelText: 'Email',
-                labelStyle: GoogleFonts.roboto(
-                  fontSize: MediaQuery.of(context).size.width / 20,
-                  color: Colors.black,
-                ),
+                labelStyle: GoogleFonts.notoSans(
+                    fontSize: MediaQuery.of(context).size.height / 45,
+                    color: Colors.black),
                 errorStyle: TextStyle(
                   color: Colors.black,
                 )),
@@ -53,8 +67,11 @@ class _LoginState extends State<Login> {
           child: TextFormField(
             keyboardType: TextInputType.emailAddress,
             cursorColor: Colors.black,
-            style:
-                TextStyle(color: Colors.black, fontFamily: 'Andika New Basic'),
+            obscureText: _obscureText,
+            obscuringCharacter: '*',
+            style: GoogleFonts.notoSans(
+                fontSize: MediaQuery.of(context).size.height / 45,
+                color: Colors.black),
             onChanged: (value) {
               setState(() {
                 password = value;
@@ -66,53 +83,67 @@ class _LoginState extends State<Login> {
                   color: Colors.black,
                 )),
                 prefixIcon: Icon(
-                  Icons.email,
+                  Icons.lock,
                   color: Colors.black,
                 ),
+                suffixIcon: IconButton(
+                    color: Colors.black,
+                    icon: Icon(
+                      _obscureText ? Icons.visibility_off : Icons.visibility,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _obscureText = !_obscureText;
+                      });
+                    }),
                 labelText: 'Password',
-                labelStyle: GoogleFonts.roboto(
-                  fontSize: MediaQuery.of(context).size.width / 20,
-                  color: Colors.black,
-                ),
+                labelStyle: GoogleFonts.notoSans(
+                    fontSize: MediaQuery.of(context).size.height / 45,
+                    color: Colors.black),
                 errorStyle: TextStyle(
                   color: Colors.black,
                 )),
           ),
         ),
+        SizedBox(height: 30),
         Container(
           height: MediaQuery.of(context).size.height / 15,
           width: MediaQuery.of(context).size.width / 2,
           child: ElevatedButton(
               style: ButtonStyle(
                   backgroundColor:
-                      MaterialStateProperty.all(Colors.blue.shade900),
+                      MaterialStateProperty.all(Colors.lightBlue.shade300),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(
                               MediaQuery.of(context).size.width * 0.08),
                           side: BorderSide(color: Colors.white)))),
               onPressed: () async {
-               
+                EasyLoading.show(status: 'Authenticating...');
                 try {
                   print(email);
                   print(password);
                   await login(email, password);
                   if (userDetails != null) {
                     Navigator.pop(context);
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => Menu()));
-                    
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Menu()));
+                    EasyLoading.showSuccess('Logged in successfully');
                   }
-                  
+                  EasyLoading.dismiss();
                 } catch (e) {
-                  
+                  EasyLoading.showError(
+                    e.message,
+                  );
                 }
               },
               child: Text(
                 'Login',
-                style: TextStyle(
-                    fontSize: MediaQuery.of(context).size.width * 0.05,
-                    letterSpacing: MediaQuery.of(context).size.width * 0.002),
+                style: GoogleFonts.notoSans(
+                    fontSize: MediaQuery.of(context).size.height / 35,
+                    color: Colors.white),
               )),
         ),
       ]),
