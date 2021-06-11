@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hyland_hackathon/authentication/login.dart';
 import 'package:hyland_hackathon/authentication/signup.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -37,7 +38,7 @@ class FirstPage extends StatelessWidget {
                             side: BorderSide(color: Colors.white)))),
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => signup()));
+                      MaterialPageRoute(builder: (context) => Login()));
                 },
                 child: Text('Get Started',
                     style: GoogleFonts.notoSans(

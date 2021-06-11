@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hyland_hackathon/authentication/authentication_service.dart';
 import 'package:hyland_hackathon/viewcart.dart';
 
@@ -25,61 +26,133 @@ class _ordersState extends State<orders> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: DropdownButton<String>(
-          value: dropdownValue,
-          icon: const Icon(Icons.arrow_downward),
-          iconSize: 24,
-          elevation: 16,
-          style: const TextStyle(color: Colors.deepPurple),
-          underline: Container(
-            height: 2,
-            color: Colors.deepPurpleAccent,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(20),
           ),
-          onChanged: (newValue) {
-            setState(() {
-              dropdownValue = newValue;
-              getproducts(dropdownValue);
-            });
-          },
-          items: <String>['oxygen', 'blood', 'food']
-              .map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
-            );
-          }).toList(),
+        ),
+        backgroundColor: Colors.lightBlue.shade300,
+        title: Row(
+          children: [
+            DropdownButton<String>(
+              value: dropdownValue,
+              icon: const Icon(Icons.arrow_downward),
+              iconSize: 24,
+              elevation: 16,
+              style: const TextStyle(color: Colors.black),
+              underline: Container(
+                height: 2,
+                color: Colors.white,
+              ),
+              onChanged: (newValue) {
+                setState(() {
+                  dropdownValue = newValue;
+                  getproducts(dropdownValue);
+                });
+              },
+              items: <String>['oxygen', 'blood', 'food', 'bed', 'ambulance']
+                  .map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+            ),
+            Spacer(),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => viewcart()));
+                },
+                child: Text("View Cart")),
+          ],
         ),
       ),
       body: SingleChildScrollView(
         child: SafeArea(
             child: Column(
           children: [
+            SizedBox(height: 10),
             product != null && product.size != 0
                 ? ListView.builder(
                     physics: ScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: product.size,
                     itemBuilder: (BuildContext context, int index) {
-                      return Column(children: [
-                        Text(product.docs[index].data()['product_name']),
-                        Text(product.docs[index].data()['description']),
-                        FlatButton(onPressed: ()async {
-                          var cart=userDetails['cart'];
-                          if(!cart.contains(product.docs[index].id))
-                          {
-                          cart.add(product.docs[index].id);
-                          await firestore.collection('users').doc(user.uid).update({
-                            "cart":cart
-                          });
-                          }
-                        }, child: Text("Add To Cart")),
-                      ]);
+                      return Card(
+                        elevation: 15,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 8, horizontal: 15),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  product.docs[index].data()['product_name'],
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                Text(
+                                  product.docs[index].data()['description'],
+                                  style: TextStyle(color: Colors.grey.shade600),
+                                ),
+                                Divider(color: Colors.lightBlue.shade300),
+                                Row(
+                                  children: [
+                                    Text(
+                                      "Rs. " +
+                                          product.docs[index]
+                                              .data()['price']
+                                              .toString(),
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                    Spacer(),
+                                    RaisedButton(
+                                        onPressed: () async {
+                                          var cart = userDetails['cart'];
+                                          if (!cart.contains(
+                                              product.docs[index].id)) {
+                                            cart.add(product.docs[index].id);
+                                            await firestore
+                                                .collection('users')
+                                                .doc(user.uid)
+                                                .update({"cart": cart});
+                                            Fluttertoast.showToast(
+                                                msg:
+                                                    "Item added to cart",
+                                                toastLength: Toast.LENGTH_SHORT,
+                                                gravity: ToastGravity.CENTER,
+                                                timeInSecForIosWeb: 1,
+                                                backgroundColor: Colors.green,
+                                                textColor: Colors.white,
+                                                fontSize: 16.0);
+                                          }
+                                          else{
+                                            Fluttertoast.showToast(
+        msg: "Item could not be added to cart",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
+                                          }
+                                        },
+                                        color: Colors.lightBlue.shade300,
+                                        child: Text("Add To Cart")),
+                                  ],
+                                ),
+                                Divider(color: Colors.lightBlue.shade300),
+                              ]),
+                        ),
+                      );
                     },
                   )
                 : Container(),
-                ElevatedButton(onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>viewcart() ));
-                }, child: Text("View Cart")),
           ],
         )),
       ),

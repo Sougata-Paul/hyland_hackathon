@@ -37,6 +37,7 @@ dependencies:
   flutter_easyloading:
   ntp:
   searchable_dropdown:
+  modal_progress_hud: ^0.1.3
 
 
 dev_dependencies:

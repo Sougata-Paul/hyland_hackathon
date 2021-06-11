@@ -8,6 +8,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/gestures.dart';
 import 'package:hyland_hackathon/authentication/authentication_service.dart';
 import 'package:hyland_hackathon/authentication/login.dart';
+import 'package:hyland_hackathon/disease_checker.dart';
+import 'package:hyland_hackathon/orders.dart';
 import 'package:hyland_hackathon/validation.dart';
 
 class signup extends StatefulWidget {

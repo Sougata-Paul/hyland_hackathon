@@ -1,5 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:hyland_hackathon/doctorlist.dart';
+import 'package:hyland_hackathon/myprofile.dart';
 import 'package:searchable_dropdown/searchable_dropdown.dart';
 
 class DiseaseChecker extends StatefulWidget {
@@ -12,8 +15,19 @@ class _DiseaseCheckerState extends State<DiseaseChecker> {
   List<DropdownMenuItem<dynamic>> items = [];
   QuerySnapshot diseases;
   List<String> symptoms = [];
+  QuerySnapshot doctorlist;
   bool vis = false;
   List<String> myDiseases = [];
+  getdoctors(List<String> diseases) async {
+    doctorlist = await FirebaseFirestore.instance
+        .collection('doctors')
+        .where('disease', arrayContainsAny: diseases)
+        .get();
+    for (var item in doctorlist.docs) {
+      print(item.data().toString());
+    }
+  }
+
   getDiseaseSymptoms() async {
     diseases = await FirebaseFirestore.instance.collection('disease').get();
     for (int i = 0; i < diseases.size; i++) {
@@ -42,8 +56,34 @@ class _DiseaseCheckerState extends State<DiseaseChecker> {
 
   @override
   Widget build(BuildContext context) {
+    print(myDiseases.toString());
+    
     return diseases != null
         ? Scaffold(
+          appBar: AppBar(
+              title: Row(
+                children: [
+                  Text(
+                    "Find Diseases",
+                    style: GoogleFonts.notoSans(
+                        fontWeight: FontWeight.bold,
+                        fontSize: MediaQuery.of(context).size.height / 35,
+                        color: Colors.white),
+                  ),
+                  Spacer(),
+                  IconButton(icon: Icon(Icons.account_circle,color:Colors.white,size: 30,), onPressed:(){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>myprofile() ) );
+                  },)
+                 
+                ],
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(
+                  bottom: Radius.circular(20),
+                ),
+              ),
+              backgroundColor: Colors.lightBlue.shade300,
+            ),
             body: SingleChildScrollView(
               child: SafeArea(
                   child: Column(
@@ -72,7 +112,15 @@ class _DiseaseCheckerState extends State<DiseaseChecker> {
                     },
                     isExpanded: true,
                   ),
-                  RaisedButton(
+                  ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.lightBlue.shade300),
+                        shape: MaterialStateProperty
+                            .all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                    MediaQuery.of(context).size.height / 20),
+                                side: BorderSide(color: Colors.white)))),
                     onPressed: () {
                       myDiseases = [];
                       for (int i = 0; i < selectedItems.length; i++) {
@@ -83,20 +131,35 @@ class _DiseaseCheckerState extends State<DiseaseChecker> {
                                 .data()['disease_name']
                                 .toString();
                             if (!myDiseases.contains(d)) {
-                              setState(() {
-                                myDiseases.add(d);
-                              });
+                              myDiseases.add(d);
                             }
                           }
                         }
                       }
+                      getdoctors(myDiseases);
                       setState(() {
                         vis = true;
                       });
                     },
                     child: Text('Check Disease'),
                   ),
-                  Visibility(visible: vis, child: Text(myDiseases.join('\n')))
+                  Visibility(
+                      visible: vis,
+                      child: Column(
+                        children: [
+                          Text(myDiseases.join('\n'),style: TextStyle(fontSize: 20),),
+                          RaisedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Doctorlist(
+                                              doctorlist: doctorlist,
+                                            )));
+                              },
+                              child: Text('Find Doctor'))
+                        ],
+                      )),
                 ],
               )),
             ),
@@ -106,3 +169,4 @@ class _DiseaseCheckerState extends State<DiseaseChecker> {
           );
   }
 }
+

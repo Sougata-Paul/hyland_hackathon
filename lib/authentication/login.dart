@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hyland_hackathon/authentication/authentication_service.dart';
+import 'package:hyland_hackathon/authentication/signup.dart';
 import 'package:hyland_hackathon/menu.dart';
 
 import '../disease_checker.dart';
@@ -146,6 +147,28 @@ class _LoginState extends State<Login> {
                     color: Colors.white),
               )),
         ),
+        Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: Text(
+                    "Already have an account?",
+                    style: GoogleFonts.notoSans(
+                        fontSize: MediaQuery.of(context).size.height / 45,
+                        color: Colors.black),
+                  ),
+                ),
+                FlatButton(
+                    onPressed: () async {
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) => signup()));
+                     
+                    },
+                    child: Text(
+                      " SignUp",
+                      style: GoogleFonts.notoSans(
+                          fontSize: MediaQuery.of(context).size.height / 45,
+                          color: Colors.black,
+                          decoration: TextDecoration.underline),
+                    ))
       ]),
     );
   }
