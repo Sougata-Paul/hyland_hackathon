@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hyland_hackathon/authentication/authentication_service.dart';
+import 'package:hyland_hackathon/myorders.dart';
 import 'package:hyland_hackathon/viewcart.dart';
 
 class orders extends StatefulWidget {
@@ -22,6 +23,13 @@ class _ordersState extends State<orders> {
   }
 
   String dropdownValue = 'oxygen';
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getproducts(dropdownValue);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,6 +81,18 @@ class _ordersState extends State<orders> {
             child: Column(
           children: [
             SizedBox(height: 10),
+            ButtonTheme(
+              minWidth: 300.0,
+              height: 50.0,
+              child: RaisedButton(
+                color: Colors.lightBlue.shade300,
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>myorders()));
+                },
+                child: Text("My Orders",style: TextStyle(fontSize: 20,letterSpacing: 1),),
+              ),
+            ),
+            SizedBox(height:10),
             product != null && product.size != 0
                 ? ListView.builder(
                     physics: ScrollPhysics(),
@@ -121,25 +141,22 @@ class _ordersState extends State<orders> {
                                                 .doc(user.uid)
                                                 .update({"cart": cart});
                                             Fluttertoast.showToast(
-                                                msg:
-                                                    "Item added to cart",
+                                                msg: "Item added to cart",
                                                 toastLength: Toast.LENGTH_SHORT,
                                                 gravity: ToastGravity.CENTER,
                                                 timeInSecForIosWeb: 1,
                                                 backgroundColor: Colors.green,
                                                 textColor: Colors.white,
                                                 fontSize: 16.0);
-                                          }
-                                          else{
+                                          } else {
                                             Fluttertoast.showToast(
-        msg: "Item could not be added to cart",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0
-    );
+                                                msg: "Item alredy in your cart",
+                                                toastLength: Toast.LENGTH_SHORT,
+                                                gravity: ToastGravity.CENTER,
+                                                timeInSecForIosWeb: 1,
+                                                backgroundColor: Colors.red,
+                                                textColor: Colors.white,
+                                                fontSize: 16.0);
                                           }
                                         },
                                         color: Colors.lightBlue.shade300,

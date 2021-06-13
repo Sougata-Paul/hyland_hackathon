@@ -9,21 +9,23 @@ class contactlist extends StatefulWidget {
 }
 
 class _contactlistState extends State<contactlist> {
-  bool showspinner=true;
   QuerySnapshot contact;
-  getcontact() async {
-    contact = await firestore.collection('contacts').get();
+  getcontact(String str) async {
+    contact = await firestore
+        .collection('contacts')
+        .where('disease', isEqualTo: str)
+        .get();
     setState(() {
       contact = contact;
-      showspinner=false;
     });
   }
 
+  String dropdownValue = 'Dengue';
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getcontact();
+    getcontact(dropdownValue);
   }
 
   @override
@@ -36,58 +38,86 @@ class _contactlistState extends State<contactlist> {
           ),
         ),
         backgroundColor: Colors.lightBlue.shade300,
-        title: Text("List Of Government Contact No"),
-      ),
-      body: ModalProgressHUD (
-        inAsyncCall: showspinner,
-              child: SingleChildScrollView(
-          child: SafeArea(
-              child: Column(
-            children: [
-              SizedBox(height:10),
-                  contact != null && contact.size != 0
-                      ? ListView.builder(
-                          physics: ScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: contact.size,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Card(
-                              elevation: 15,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 8, horizontal: 15),
-                                child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Text(
-                                            contact.docs[index].data()['disease']+":  ",
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w600),
-                                          ),
-                                          Text(
-                                            contact.docs[index].data()['contact'],
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w600),
-                                          ),
-                                        ],
-                                      ),
-                                     
-                                      Divider(color: Colors.lightBlue.shade300),
-                                      
-                                      
-                                    ]),
-                              ),
-                            );
-                          },
-                        )
-                      : Container(),
-            ],
-          )),
+        title: Row(
+          children: [
+            Text("Government Contact No"),
+            Spacer(),
+            DropdownButton<String>(
+              value: dropdownValue,
+              icon: const Icon(Icons.arrow_downward),
+              iconSize: 24,
+              elevation: 16,
+              style: const TextStyle(color: Colors.black),
+              underline: Container(
+                height: 2,
+                color: Colors.white,
+              ),
+              onChanged: (newValue) {
+                setState(() {
+                  dropdownValue = newValue;
+                  getcontact(dropdownValue);
+                });
+              },
+              items: <String>[
+                'Covid19',
+                'Thalassemia',
+                'Dengue',
+                'Malaria',
+              ].map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+            ),
+          ],
         ),
+      ),
+      body: SingleChildScrollView(
+        child: SafeArea(
+            child: Column(
+          children: [
+            SizedBox(height: 10),
+            contact != null && contact.size != 0
+                ? ListView.builder(
+                    physics: ScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: contact.size,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Card(
+                        elevation: 15,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 8, horizontal: 15),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      contact.docs[index].data()['disease'] +
+                                          ":  ",
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    Text(
+                                      contact.docs[index].data()['contact'],
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  ],
+                                ),
+                                Divider(color: Colors.lightBlue.shade300),
+                              ]),
+                        ),
+                      );
+                    },
+                  )
+                : Container(),
+          ],
+        )),
       ),
     );
   }

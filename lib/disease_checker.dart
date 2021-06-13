@@ -57,10 +57,10 @@ class _DiseaseCheckerState extends State<DiseaseChecker> {
   @override
   Widget build(BuildContext context) {
     print(myDiseases.toString());
-    
+
     return diseases != null
         ? Scaffold(
-          appBar: AppBar(
+            appBar: AppBar(
               title: Row(
                 children: [
                   Text(
@@ -71,10 +71,17 @@ class _DiseaseCheckerState extends State<DiseaseChecker> {
                         color: Colors.white),
                   ),
                   Spacer(),
-                  IconButton(icon: Icon(Icons.account_circle,color:Colors.white,size: 30,), onPressed:(){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>myprofile() ) );
-                  },)
-                 
+                  IconButton(
+                    icon: Icon(
+                      Icons.account_circle,
+                      color: Colors.white,
+                      size: 30,
+                    ),
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => myprofile()));
+                    },
+                  )
                 ],
               ),
               shape: RoundedRectangleBorder(
@@ -114,8 +121,8 @@ class _DiseaseCheckerState extends State<DiseaseChecker> {
                   ),
                   ElevatedButton(
                     style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(Colors.lightBlue.shade300),
+                        backgroundColor: MaterialStateProperty.all(
+                            Colors.lightBlue.shade300),
                         shape: MaterialStateProperty
                             .all<RoundedRectangleBorder>(RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(
@@ -147,8 +154,24 @@ class _DiseaseCheckerState extends State<DiseaseChecker> {
                       visible: vis,
                       child: Column(
                         children: [
-                          Text(myDiseases.join('\n'),style: TextStyle(fontSize: 20),),
-                          RaisedButton(
+                          Text(
+                            myDiseases.join('\n'),
+                            style: TextStyle(fontSize: 20),
+                          ),
+                          ElevatedButton(
+                              style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all(
+                                      Colors.lightBlue.shade300),
+                                  shape: MaterialStateProperty.all<
+                                          RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                              MediaQuery.of(context)
+                                                      .size
+                                                      .height /
+                                                  20),
+                                          side: BorderSide(
+                                              color: Colors.white)))),
                               onPressed: () {
                                 Navigator.push(
                                     context,
@@ -169,4 +192,3 @@ class _DiseaseCheckerState extends State<DiseaseChecker> {
           );
   }
 }
-

@@ -37,14 +37,14 @@ class _MenuState extends State<Menu> {
         items: [
           BottomNavigationBarItem(label: 'Home', icon: Icon(Icons.home)),
           BottomNavigationBarItem(
-              label: 'Orders', icon: Icon(Icons.contact_mail_rounded)),
+              label: 'Orders', icon: Icon(Icons.shopping_bag_rounded)),
           BottomNavigationBarItem(label: 'Chat', icon: Icon(Icons.chat_bubble)),
           BottomNavigationBarItem(
-              label: 'Feed', icon: Icon(Icons.notifications)),
+              label: 'Feed', icon: Icon(Icons.connect_without_contact)),
           BottomNavigationBarItem(
             label: 'Contact',
             icon: Icon(
-              Icons.person_outline_rounded,
+              Icons.language,
             ),
           ),
         ],
